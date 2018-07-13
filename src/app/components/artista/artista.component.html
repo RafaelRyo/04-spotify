@@ -1,0 +1,58 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<div class="row animated fadeIn" *ngIf="!loading"  >
+   <div class="col-2">
+     <img [src]=" artista.images | noimage " class="img-thumbnail img-circle">
+   </div>
+
+   <div class="">
+     <h3>{{ artista.name }}</h3>
+     <p>
+       <a [href]="artista.external_urls.spotify" target="_blank">
+         Ir a la página del artista
+       </a>
+     </p>
+   </div>
+   <div class="col-4 text-right">
+     <button routerLink="/search" type="button" class="btn btn-outline-danger">
+        Regresar
+     </button>
+
+   </div>
+</div>
+
+<div class="row m-5">
+  <div class="col">
+    <div class="table">
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Album</th>
+          <th>Cancíon</th>
+          <th>Vista Previa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aqui hacemos la lista para mostrar las canciones del cantante-->
+        <!-- let track es el nombre que le datos nosotros que coje la info del topTracks-->
+
+        <tr *ngFor="let track of topTracks">
+          <td>
+            <img [src]="track.album.images | noimage " class="img-thumbnail img-circle">
+          </td>
+          <!-- Aqui colocamos track y pedimos solo el album.name-->
+          <td> {{track.album.name}} </td>
+          <!-- AQui solo pedimos el nombre de la cancion-->
+          <td> {{track.name}} </td>
+          <td>
+            <!--<audio [src]="track.preview_url"controls ></audio>-->
+            <iframe [src]="track.uri | domseguro " width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+          </td>
+        </tr>
+      </tbody>
+
+    </div>
+
+  </div>
+
+</div>
